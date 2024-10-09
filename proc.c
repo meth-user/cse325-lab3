@@ -533,6 +533,7 @@ procdump(void)
   }
 }
 
+<<<<<<< HEAD
 int
 get_priority(int pid)
 {
