@@ -322,7 +322,7 @@ wait(void)
 void
 scheduler(void)
 {
-  struct proc *p;
+  struct proc *p, *R;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -332,24 +332,30 @@ scheduler(void)
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->state != RUNNABLE)
+    for(R = ptable.proc; R < &ptable.proc[NPROC]; R++){
+      if(R->state != RUNNABLE)
         continue;
 
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
-
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
-
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
+      if( !p || p->nice< R->nice )
+          p = R;
     }
+
+    if(p){
+        // Switch to chosen process.  It is the process's job
+        // to release ptable.lock and then reacquire it
+        // before jumping back to us.
+        c->proc = R;
+        switchuvm(R);
+        R->state = RUNNING;
+
+        swtch(&(c->scheduler), R->context);
+        switchkvm();
+
+        // Process is done running for now.
+        // It should have changed its p->state (now R->state) before coming back.
+        c->proc = 0;
+    }
+
     release(&ptable.lock);
 
   }
@@ -533,7 +539,6 @@ procdump(void)
   }
 }
 
-<<<<<<< HEAD
 int
 get_priority(int pid)
 {
