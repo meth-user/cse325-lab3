@@ -1,3 +1,6 @@
+#include "types.h"
+#include "user.h"
+
 #define DEF_P 20
 
 int main(int argc, char *argv[]){
