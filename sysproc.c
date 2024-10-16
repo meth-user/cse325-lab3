@@ -91,14 +91,24 @@ sys_uptime(void)
 }
 
 int
-sys_get_priority(int pid)
+sys_get_priority(void)
 {
+    int pid;
+
+    if( argint(0, &pid) < 0 )
+        return -1;
+
     return get_priority(pid);
 }
 
 int
-sys_set_priority(int pid, int priority)
+sys_set_priority(void)
 {
+    int pid, priority;
+
+    if( argint(0, &pid) < 0 || argint(1, &priority) < 0)
+        return -1;
+
     return set_priority(pid, priority);
 }
 
