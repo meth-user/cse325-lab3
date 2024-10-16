@@ -539,11 +539,11 @@ get_priority(int pid)
     struct proc *p;
     int priority = -1;                                  //Default return value
 
-    acquire(&ptable.lock)
+    acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
         if (p->pid == pid) priority = p->nice;
     }
-    release(&ptable.lock)
+    release(&ptable.lock);
 
     return priority;
 }
@@ -553,17 +553,17 @@ set_priority(int pid, int priority)
 {
     struct proc *p;
 
-    acquire(&ptable.lock)
+    acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
         if (p->pid == pid){
-            if      ( n < 0 )   priority = 0;
-            else if ( n > 39 )  priority = 39;
+            if      ( priority < 0 )   priority = 0;
+            else if ( priority > 39 )  priority = 39;
             p->nice = priority;
-            release(&ptable.lock)
+            release(&ptable.lock);
             return 0;
         }
     }
-    release(&ptable.lock)
+    release(&ptable.lock);
     return -1;
 }
 
