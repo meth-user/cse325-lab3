@@ -124,6 +124,8 @@ void            yield(void);
 int             get_priority(int);
 int             set_priority(int, int);
 
+int             cps(void);
+
 // swtch.S
 void            swtch(struct context**, struct context*);
 

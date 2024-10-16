@@ -568,7 +568,7 @@ set_priority(int pid, int priority)
 }
 
 int 
-cps()
+cps(void)
 {
 	struct proc *p;
 	
