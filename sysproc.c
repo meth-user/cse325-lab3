@@ -89,3 +89,19 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_thread_create(void)
+{
+    int fn;
+    int stack;
+    int arg;
+
+    if(
+        argint(0, &fn) < 0      ||
+        argint(1, &stack) < 0   ||
+        argint(2, &arg) < 0
+    ) return -1;
+
+    return thread_create( (void*)(void*)fn, (void*)stack, (void*)arg );
+}
