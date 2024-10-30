@@ -25,6 +25,8 @@ int sleep(int);
 int uptime(void);
 
 int thread_create(void (*fn)(void*), void *stack, void *arg);
+int thread_join(void);
+int thread_exit(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

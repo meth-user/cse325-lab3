@@ -581,3 +581,16 @@ thread_create(void (*fn)(void*), void *stack, void *arg)
 
   return pid;
 }
+
+int
+thread_join(void)
+{
+    return 0;
+}
+
+//*
+int
+thread_exit(void)
+{
+    return 0;
+}//*/

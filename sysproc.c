@@ -105,3 +105,14 @@ sys_thread_create(void)
 
     return thread_create( (void*)(void*)fn, (void*)stack, (void*)arg );
 }
+
+int
+sys_thread_join(void)
+{
+    return thread_join();
+}
+/*
+int
+sys_thread_join(void)
+{
+}//*/
