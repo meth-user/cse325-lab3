@@ -22,4 +22,4 @@
 #define SYS_close  21
 #define SYS_thread_create   22
 #define SYS_thread_join     23
-//#define SYS_thread_exit     24
+#define SYS_thread_exit     24

@@ -111,8 +111,9 @@ sys_thread_join(void)
 {
     return thread_join();
 }
-/*
+
 int
-sys_thread_join(void)
+sys_thread_exit(void)
 {
-}//*/
+    return thread_exit();
+}
