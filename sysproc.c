@@ -89,3 +89,9 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_get_nfpages(void)
+{
+    return get_nfpages();
+}
