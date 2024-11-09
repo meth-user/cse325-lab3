@@ -537,14 +537,5 @@ procdump(void)
 int
 get_nfpages(void)
 {
-    int fpages = 0;
-    struct run *HEAD;
-
-    acquire(&kmem.use_lock);
-    HEAD = kmem.freelist;
-    for(; HEAD; fpages++)
-        HEAD = HEAD->next;
-
-    release(&kmem.use_lock);
-    return 0;
+    return knfree();
 }
