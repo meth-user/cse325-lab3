@@ -103,13 +103,13 @@ knfree(void)
     struct run *HEAD;
 
     if(kmem.use_lock)
-        acquire(&kmem.use_lock);
+        acquire(&kmem.lock);
 
     HEAD = kmem.freelist;
     for(; HEAD; fpages++)
         HEAD = HEAD->next;
 
     if(kmem.use_lock)
-        release(&kmem.use_lock);
+        release(&kmem.lock);
     return fpages;
 }
